@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        .navbar {
+            background-color: #ffb600;
+            color: #fff;
+            padding: 1rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: auto;
+            z-index: 1;
+
+    }
+
+    .dropdown-submenu {
+        position: relative;
+        z-index: 1
+    }
+
+    .dropdown-submenu .dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-top: -1px;
+        z-index: 1
+    }
+
+    .dropdown:hover>.dropdown-menu,
+    .dropdown-submenu:hover>.dropdown-menu {
+        display: block;
+        z-index: 1
+    }
+
+    .navbar-collapse {
+            background-color: #ffb600;
+            width: 100%;
+            z-index: 1;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 70px; /* Height of the navbar */
+            left: 0;
+            background-color: #d04a02;
+            padding-top: 20px;
+        }
+
+        .sidebar a {
+            padding: 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        .content {
+            margin-left: 260px;
+            padding: 20px;
+            margin-top: 75px;
+        }
+
+        .header {
+            background-color: #ffb600;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+        }
+
+        .card {
+            background-color: white;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #eb8c00;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: #d04a02;
+        }
+
+        .card table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .card table, .card th, .card td {
+            border: 1px solid #ddd;
+        }
+
+        .card th, .card td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        .card th {
+            background-color: #f2f2f2;
+        }
+
+        .button {
+            background-color: #db536a;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .button:hover {
+            background-color: #d93954;
+        }
+
+
+        .chart-container {
+            width: 100%;
+            height: 400px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Co-op Technology</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">Services</a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <!-- Agricultural Based Section -->
+                    <li class="dropdown-submenu">
+                        <a class="dropdown-item dropdown-toggle" href="#">Agricultural Based</a>
+                        <ul class="dropdown-menu">
+                            <!-- Financial Services -->
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" href="#">Financial Services</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Bank & Agriculture Loans</a></li>
+                                    <li><a class="dropdown-item" href="#">Insurance & Training Services</a></li>
+                                </ul>
+                            </li>
+                            <!-- Non-Financial Services -->
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" href="#">Non-Financial Services</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="machinery-service.html">Machinery & Equipment Services</a></li>
+                                    <li><a class="dropdown-item" href="#">Storage & Processing Unit Rentals</a></li>
+                                    <li><a class="dropdown-item" href="#">Delivery & Distribution Services</a></li>
+                                    <li><a class="dropdown-item" href="#">Agri-produce Auction & Sales</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Non-Agricultural Based Section -->
+                    <li class="dropdown-submenu">
+                        <a class="dropdown-item dropdown-toggle" href="#">Non-Agricultural Based</a>
+                        <ul class="dropdown-menu">
+                            <!-- Financial Services -->
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" href="#">Financial Services</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Bill Payment & Loan Services</a></li>
+                                    <li><a class="dropdown-item" href="#">Utility & Charity Services</a></li>
+                                </ul>
+                            </li>
+                            <!-- Non-Financial Services -->
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" href="#">Non-Financial Services</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Inventory & Stock Management</a></li>
+                                    <li><a class="dropdown-item" href="#">Vehicle & Building Rental Services</a></li>
+                                    <li><a class="dropdown-item" href="#">Health Services & Lab Tests</a></li>
+                                    <li><a class="dropdown-item" href="#">Skill, Learning & Training Services</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            </ul>
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+              <input type="search" class="form-control" placeholder="Search..." aria-label="Search" spellcheck="false" data-ms-editor="true">
+            </form>
+              
+            <div class="flex-shrink-0 dropdown">
+                <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"></path>
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"></path>
+                      </svg>
+                </a>
+                <ul class="dropdown-menu text-small shadow" data-popper-placement="bottom-end">
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="home.html">Sign out</a></li>
+              </div>
+          </div>
+        </div>
+      </nav>
+<div class="sidebar">
+    <a href="#dashboard">Dashboard</a>
+    <a href="#users">Users</a>
+    <a href="#sales">Sales Analysis</a>
+    <a href="#orders">Orders</a>
+    <a href="#inventory">Inventory</a>
+    <a href="#delivery">Delivery</a>
+    <a href="home.html">Home</a>
+    <a href="home.html">Logout</a>
+</div>
+
+<div class="content">
+    <div class="header">
+        <h1>Admin Dashboard</h1>
+    </div>
+
+    <div class="card" id="dashboard">
+        <h2>Dashboard Overview</h2>
+        <p>Welcome to the admin dashboard. Here you can manage users, settings, view various statistics, and more.</p>
+        <div class="chart-container">
+            <canvas id="salesChart"></canvas>
+        </div>
+    </div>
+
+    <div class="card" id="users">
+        <h2>Users</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+            </tr>
+            </thead>
+            <tbody id="userTable">
+            <!-- Users will be populated here via JavaScript -->
+            </tbody>
+        </table>
+        <button class="button" onclick="addUser()">Add User</button>
+    </div>
+
+    <div class="card" id="sales">
+        <h2>Sales Analysis</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Month</th>
+                <th>Sales</th>
+            </tr>
+            </thead>
+            <tbody id="salesTable">
+            <!-- Sales data will be populated here via JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card" id="orders">
+        <h2>Orders</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody id="orderTable">
+            <!-- Orders will be populated here via JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card" id="inventory">
+        <h2>Inventory</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Item ID</th>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody id="inventoryTable">
+            <!-- Inventory data will be populated here via JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card" id="delivery">
+        <h2>Delivery</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Delivery ID</th>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody id="deliveryTable">
+            <!-- Delivery data will be populated here via JavaScript -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+    const users = [
+        { id: 1, name: 'Harshit Goyal', email: 'harshitgoyal@example.com', role: 'Admin' },
+        { id: 2, name: 'ABC', email: 'abc@example.com', role: 'Editor' },
+        { id: 3, name: 'XYZ', email: 'xyz@example.com', role: 'Subscriber' }
+    ];
+
+    const sales = [
+        { month: 'January', sales: 15000 },
+        { month: 'February', sales: 20000 },
+        { month: 'March', sales: 25000 },
+        { month: 'April', sales: 30000 },
+        { month: 'May', sales: 35000 },
+        { month: 'June', sales: 40000 },
+    ];
+
+    const orders = [
+        { id: 1, customer: 'John Doe', date: '2024-01-01', status: 'Completed' },
+        { id: 2, customer: 'Jane Smith', date: '2024-01-05', status: 'Pending' },
+        { id: 3, customer: 'Sam Wilson', date: '2024-01-10', status: 'Shipped' },
+    ];
+
+    const inventory = [
+        { id: 1, name: 'Product A', quantity: 100, status: 'In Stock' },
+        { id: 2, name: 'Product B', quantity: 50, status: 'Low Stock' },
+        { id: 3, name: 'Product C', quantity: 0, status: 'Out of Stock' },
+    ];
+
+    const deliveries = [
+        { id: 1, orderId: 1, customer: 'John Doe', status: 'Delivered' },
+        { id: 2, orderId: 2, customer: 'Jane Smith', status: 'In Transit' },
+        { id: 3, orderId: 3, customer: 'Sam Wilson', status: 'Pending' },
+    ];
+
+    function populateUserTable() {
+        const userTable = document.getElementById('userTable');
+        userTable.innerHTML = '';
+        users.forEach(user => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${user.id}</td>
+                <td>${user.name}</td>
+                <td>${user.email}</td>
+                <td>${user.role}</td>
+            `;
+            userTable.appendChild(row);
+        });
+    }
+
+    function addUser() {
+        const id = users.length + 1;
+        const name = prompt('Enter user name:');
+        const email = prompt('Enter user email:');
+        const role = prompt('Enter user role:');
+        users.push({ id, name, email, role });
+        populateUserTable();
+    }
+
+    function populateSalesTable() {
+        const salesTable = document.getElementById('salesTable');
+        salesTable.innerHTML = '';
+        sales.forEach(sale => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${sale.month}</td>
+                <td>${sale.sales}</td>
+            `;
+            salesTable.appendChild(row);
+        });
+    }
+
+    function populateOrderTable() {
+        const orderTable = document.getElementById('orderTable');
+        orderTable.innerHTML = '';
+        orders.forEach(order => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${order.id}</td>
+                <td>${order.customer}</td>
+                <td>${order.date}</td>
+                <td>${order.status}</td>
+            `;
+            orderTable.appendChild(row);
+        });
+    }
+
+    function populateInventoryTable() {
+        const inventoryTable = document.getElementById('inventoryTable');
+        inventoryTable.innerHTML = '';
+        inventory.forEach(item => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${item.id}</td>
+                <td>${item.name}</td>
+                <td>${item.quantity}</td>
+                <td>${item.status}</td>
+            `;
+            inventoryTable.appendChild(row);
+        });
+    }
+
+    function populateDeliveryTable() {
+        const deliveryTable = document.getElementById('deliveryTable');
+        deliveryTable.innerHTML = '';
+        deliveries.forEach(delivery => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${delivery.id}</td>
+                <td>${delivery.orderId}</td>
+                <td>${delivery.customer}</td>
+                <td>${delivery.status}</td>
+            `;
+            deliveryTable.appendChild(row);
+        });
+    }
+
+    function generateSalesChart() {
+        const ctx = document.getElementById('salesChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: sales.map(sale => sale.month),
+                datasets: [{
+                    label: 'Sales',
+                    data: sales.map(sale => sale.sales),
+                    borderColor: '#d04a02',
+                    backgroundColor: 'rgba(208, 74, 2, 0.2)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        populateUserTable();
+        populateSalesTable();
+        populateOrderTable();
+        populateInventoryTable();
+        populateDeliveryTable();
+        generateSalesChart();
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
